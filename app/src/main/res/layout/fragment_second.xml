@@ -3,38 +3,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_gray"
     tools:context=".SecondFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
-
-        <Button
-            android:id="@+id/button_today"
-            android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@drawable/rounded_background">
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hoje"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/button_other_date"
-            android:layout_width="wrap_content"
+            android:text="Agenda de Compromissos"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/dark_gray"
+            android:gravity="center"
+            android:paddingBottom="12dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Outra data"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:paddingBottom="16dp">
 
+            <Button
+                android:id="@+id/button_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hoje"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/primary_color"
+                android:layout_marginEnd="8dp"
+                android:padding="8dp" />
+
+            <Button
+                android:id="@+id/button_other_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Outra Data"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/secondary_color"
+                android:padding="8dp" />
+        </LinearLayout>
         <TextView
             android:id="@+id/textview_appointments"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:text="Compromissos do dia corrente"
-            app:layout_constraintTop_toBottomOf="@id/button_today"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:padding="16dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="@drawable/rounded_corner_background"
+            android:textColor="@color/dark_gray"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"
+            android:lineSpacingExtra="4dp" />
+        <Button
+            android:id="@+id/button_back_to_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Voltar"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/gray"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:padding="8dp" />
+
+    </LinearLayout>
 </androidx.core.widget.NestedScrollView>

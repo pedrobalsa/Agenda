@@ -6,12 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import java.util.Calendar;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 
 
 public class FirstFragment extends Fragment {
@@ -33,6 +37,12 @@ public class FirstFragment extends Fragment {
         buttonTime.setOnClickListener(v -> showTimePickerDialog());
         buttonOk.setOnClickListener(v -> addCompromisso());
 
+        Button buttonShowSecondFragment = view.findViewById(R.id.button_show_second_fragment);
+        buttonShowSecondFragment.setOnClickListener(v -> {
+            NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
+            navController.navigate(R.id.action_firstFragment_to_secondFragment);
+        });
+
         return view;
     }
 
@@ -53,8 +63,17 @@ public class FirstFragment extends Fragment {
 
     private void addCompromisso() {
         String descricao = editTextDescription.getText().toString();
-        // Lógica para salvar o compromisso (usando uma classe ou banco de dados)
-        // Exemplo simples para entender:
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+
+        String dataFormatada = dateFormat.format(selectedDateTime.getTime());
+        String horaFormatada = timeFormat.format(selectedDateTime.getTime());
+
+        Compromisso compromisso = new Compromisso(descricao, dataFormatada, horaFormatada);
+
+        Agenda.getInstance().adicionarCompromisso(compromisso);
+        
         Toast.makeText(getContext(), "Compromisso adicionado!", Toast.LENGTH_SHORT).show();
     }
+
 }
