@@ -22,6 +22,13 @@ public class FirstFragment extends Fragment {
     private Button buttonDate, buttonTime, buttonOk;
     private EditText editTextDescription;
     private Calendar selectedDateTime;
+    private AgendaDB agendaDB;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        agendaDB = new AgendaDB(getContext());
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,9 +78,18 @@ public class FirstFragment extends Fragment {
 
         Compromisso compromisso = new Compromisso(descricao, dataFormatada, horaFormatada);
 
-        Agenda.getInstance().adicionarCompromisso(compromisso);
-        
-        Toast.makeText(getContext(), "Compromisso adicionado!", Toast.LENGTH_SHORT).show();
+        long resultado = agendaDB.inserirCompromisso(compromisso);
+
+        if (resultado != -1) {
+            Toast.makeText(getContext(), "Compromisso salvo com sucesso!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "Erro ao salvar compromisso.", Toast.LENGTH_SHORT).show();
+        }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        agendaDB.close();
+    }
 }

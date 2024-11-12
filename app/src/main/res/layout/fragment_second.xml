@@ -12,6 +12,8 @@
         android:orientation="vertical"
         android:padding="16dp"
         android:background="@drawable/rounded_background">
+
+        <!-- Título -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,6 +23,8 @@
             android:textColor="@color/dark_gray"
             android:gravity="center"
             android:paddingBottom="12dp" />
+
+        <!-- Botões para escolher a data -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,6 +51,8 @@
                 android:backgroundTint="@color/secondary_color"
                 android:padding="8dp" />
         </LinearLayout>
+
+        <!-- Área de visualização dos compromissos -->
         <TextView
             android:id="@+id/textview_appointments"
             android:layout_width="match_parent"
@@ -57,6 +63,8 @@
             android:textSize="16sp"
             android:layout_marginBottom="16dp"
             android:lineSpacingExtra="4dp" />
+
+        <!-- Botão de voltar -->
         <Button
             android:id="@+id/button_back_to_first"
             android:layout_width="wrap_content"

@@ -19,7 +19,13 @@ import java.util.Locale;
 public class SecondFragment extends Fragment {
     private Button buttonToday, buttonOtherDate, buttonBackToFirst;
     private TextView textViewAppointments;
-    private Agenda agenda;
+    private AgendaDB agendaDB;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        agendaDB = new AgendaDB(getContext());
+    }
 
     @Override
      public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,13 +36,10 @@ public class SecondFragment extends Fragment {
         textViewAppointments = view.findViewById(R.id.textview_appointments);
         buttonBackToFirst = view.findViewById(R.id.button_back_to_first);
 
-        Agenda agenda = Agenda.getInstance();
-
         buttonToday.setOnClickListener(v -> showTodayAppointments());
         buttonOtherDate.setOnClickListener(v -> showDatePickerDialog());
         
         buttonBackToFirst.setOnClickListener(v -> {
-            // Código para voltar ao FirstFragment
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
             navController.navigate(R.id.firstFragment);
         });
@@ -61,7 +64,7 @@ public class SecondFragment extends Fragment {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         String dataFormatada = dateFormat.format(date.getTime());
 
-        List<Compromisso> compromissos = Agenda.getInstance().getCompromissosPorData(dataFormatada);
+        List<Compromisso> compromissos = agendaDB.getCompromissosPorData(dataFormatada);
         StringBuilder displayText = new StringBuilder("Compromissos para " + dataFormatada + ":\n");
 
         if (compromissos.isEmpty()) {
@@ -76,4 +79,9 @@ public class SecondFragment extends Fragment {
         textViewAppointments.setText(displayText.toString());
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        agendaDB.close();
+    }
 }
